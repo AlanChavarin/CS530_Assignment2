@@ -1,0 +1,18 @@
+README file Instructions:
+A README file is a text file which is usually distributed with the software project to provide a basic
+description of the project and information a user may need in order to compile or operate the program.
+At a minimum, all files in the project (source code, Makefile, README file, etc) shall contain:
+• Your name (and your partners name if a team project)
+• Your class account username (and your partners if a team project)
+• Class information (i.e. CS 570, Summer 2016)
+• Assignment information (i.e. Assignment #1, Process Manager)
+• Filename of this file (i.e. README)
+At a minimum, the README file shall contain (in addition to the above):
+• File manifest (name of all files included in this project)
+• Compile instructions
+• Operating instructions (include any/all command line options/arguments, required inputs, etc)
+• List/description of novel/significant design decisions
+• List/description of any extra features/algorithms/functionality you included which were not
+required
+• List/description of all known deficiencies or bugs
+• Lessons Learned

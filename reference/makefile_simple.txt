@@ -1,0 +1,12 @@
+###########################################################
+# SAMPLE Makefile for CSNNN Assignment #n
+# Guy Leonard
+###########################################################
+EXEC = a1
+CC = /opt/SUNWspro/bin/cc
+$(EXEC):
+$(CC) -o $(EXEC) a1.c
+rm -f *.o
+clean:
+rm -f *.o core a.out $(EXEC)
+#######################[ EOF: Makefile ]###################
