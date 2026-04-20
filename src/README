@@ -1,0 +1,62 @@
+CS530 Spring 2026 - Assignment 2
+Filename: README
+
+Team members:
+- Alan Chavarin, cssc2513, red id: 827690364
+- Amir Ali, cssc2503, red id 132395455
+
+Project:
+- program name: lxe
+- purpose: Limited two-pass SIC/XE assembler.
+- inputs: one or more assembler source files passed via command line.
+- outputs per input
+  - <name>.l listing file
+  - <name>.st symbol table file
+
+Class and assignment information:
+- Class: CS530
+- Assignment: Project 2, a limited XE assembler
+
+File manifest:
+- main.cpp
+- assembler_types.h
+- parser.h, parser.cpp
+- optab.h, optab.cpp
+- symtab.h, symtab.cpp
+- pass1.h, pass1.cpp
+- pass2.h, pass2.cpp
+- listing.h, listing.cpp
+- Makefile
+- README
+- Assignment.txt
+- reference/*
+- sample/*
+
+Compiling instructions:
+1) cd into src directory
+2) Run: make
+3) Executable created: ./lxe
+
+usage instructions:
+1) cd into src directory
+2) Run: ./lxe file1.sic [file2.sic ...]
+3) If no arguments are provided, lxe prints a message and exits.
+
+design decisions:
+- Two-pass pipeline:
+  - Pass 1 computes addresses and builds symbol table.
+  - Pass 2 resolves symbols and emits object code for listing lines.
+- optab is a static in-memory table for SIC/XE opcodes and valid formats
+- parser supports label/opcode/operand/comment fields and addressing markers
+  (+, `#`, @, ,X) in source text.
+
+Extra features:
+- Multi file invocation in one run.
+- Basic error reporting for duplicate symbols, unknown opcodes, and range failures
+
+Known bugs / things to imrpove:
+- This initial version does not implement directives outside assignment scope
+  (EQU/ORG/LTORG/EXTDEF/EXTREF/CSECT)
+- Literal pools are not assembled in this version.
+- Listing column format may need final alignment tuning to exactly match Canvas.
+
