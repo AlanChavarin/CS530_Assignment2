@@ -1,8 +1,8 @@
 #include "symtab.h"
 
-// CS530 Assignment 2 - LXE Assembler
-// Team: Alan Chavarin (cssc2513, RedID 827690364)
-//       Amir Ali (cssc2503, RedID 132395455)
+//cs530 assignment 2 - lxe assembler
+//Team: Alan Chavarin (cssc2513, redid 827690364)
+//Amir Ali (cssc2503, redid 132395455)
 
 bool SymTab::insert(const std::string& symbol, int address, std::string& error_out) {
     if (symbol.empty()) return true;

@@ -2,20 +2,20 @@ CS530 Spring 2026 - Assignment 2
 Filename: README
 
 Team Members:
-- Alan Chavarin, cssc2513, Red ID: 827690364
-- Amir Ali, cssc2503, Red ID: 132395455
+- Alan Chavarin, cssc2513, rediD: 827690364
+- Amir Ali, cssc2503, redid 132395455
 
 Project:
-- Program name: lxe
-- Purpose: Limited two-pass SIC/XE assembler.
-- Inputs: one or more assembler source files passed via command line.
-- Outputs per input:
+- program name: lxe
+- purpose: Limited two-pass SIC/XE assembler.
+- inputs: one or more assembler source files passed via command line.
+- outputs per input
   - <name>.l listing file
   - <name>.st symbol table file
 
 Class / Assignment Information:
 - Class: CS530
-- Assignment: Project #2, Limited XE Assembler
+- Assignment: Project 2, Limited XE Assembler
 
 File Manifest:
 - main.cpp
@@ -47,7 +47,7 @@ Significant Design Decisions:
   - Pass 2 resolves symbols and emits object code for listing lines.
 - OPTAB is a static in-memory table for SIC/XE opcodes and valid formats.
 - Parser supports label/opcode/operand/comment fields and addressing markers
-  (+, #, @, ,X) in source text.
+  (+, `#`, @, ,X) in source text.
 
 Extra Features:
 - Multi-file invocation in one run.

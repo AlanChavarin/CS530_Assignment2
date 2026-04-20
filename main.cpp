@@ -1,6 +1,6 @@
-// CS530 Assignment 2 - LXE Assembler
-// Team: Alan Chavarin (cssc2513, RedID 827690364)
-//       Amir Ali (cssc2503, RedID 132395455)
+//cs530 assignment 2 - lxe assembler
+//Team: Alan Chavarin (cssc2513, redid 827690364)
+//Amir Ali (cssc2503, redid 132395455)
 
 #include <iostream>
 #include <string>
@@ -26,7 +26,7 @@ void print_errors(const std::vector<std::string>& errors) {
     }
 }
 
-}  // namespace
+} 
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {

@@ -1,7 +1,7 @@
 #include "optab.h"
 
-// CS530 Assignment 2 - LXE Assembler
-// Team: Alan Chavarin (cssc2513, RedID 827690364)
+    // CS530 Assignment 2 - LXE Assembler
+    // Team: Alan Chavarin (cssc2513, RedID 827690364)
 //       Amir Ali (cssc2503, RedID 132395455)
 
 #include <stdexcept>
@@ -10,7 +10,7 @@ namespace {
 const int F1 = 1 << 1;
 const int F2 = 1 << 2;
 const int F34 = (1 << 3) | (1 << 4);
-}  // namespace
+} 
 
 OpTab::OpTab() {
     add("ADD", 0x18, F34); add("ADDF", 0x58, F34); add("ADDR", 0x90, F2);

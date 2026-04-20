@@ -1,8 +1,8 @@
 #include "listing.h"
 
-// CS530 Assignment 2 - LXE Assembler
-// Team: Alan Chavarin (cssc2513, RedID 827690364)
-//       Amir Ali (cssc2503, RedID 132395455)
+//cs530 assignment 2 - lxe assembler
+//Team: Alan Chavarin (cssc2513, redid 827690364)
+//Amir Ali (cssc2503, redid 132395455)
 
 #include <fstream>
 #include <iomanip>
@@ -16,7 +16,7 @@ std::string hex_addr(int value, int width) {
     return os.str();
 }
 
-}  // namespace
+}
 
 bool ListingWriter::write_listing(const std::string& path, const std::vector<ListingRecord>& records,
                                   std::string& error_out) const {

@@ -1,8 +1,8 @@
 #include "pass1.h"
 
-// CS530 Assignment 2 - LXE Assembler
-// Team: Alan Chavarin (cssc2513, RedID 827690364)
-//       Amir Ali (cssc2503, RedID 132395455)
+//cs530 assignment 2 - lxe assembler
+//Team: Alan Chavarin (cssc2513, redid 827690364)
+//Amir Ali (cssc2503, redid 132395455)
 
 #include <cctype>
 #include <cstdlib>
@@ -37,7 +37,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
 
         line.address = locctr;
 
-        // Literal-pool emitted lines in sample format use "*" as a synthetic label.
+        // literal pool emitted lines in sample format use "*" as a synthetic label
         bool is_literal_pool_line =
             (line.label == "*" && !line.opcode.empty() && line.opcode[0] == '=');
 
