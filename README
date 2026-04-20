@@ -1,9 +1,9 @@
 CS530 Spring 2026 - Assignment 2
 Filename: README
 
-Team Members:
-- Alan Chavarin, cssc2513, rediD: 827690364
-- Amir Ali, cssc2503, redid 132395455
+Team members:
+- Alan Chavarin, cssc2513, red id: 827690364
+- Amir Ali, cssc2503, red id 132395455
 
 Project:
 - program name: lxe
@@ -13,11 +13,11 @@ Project:
   - <name>.l listing file
   - <name>.st symbol table file
 
-Class / Assignment Information:
+Class and assignment information:
 - Class: CS530
-- Assignment: Project 2, Limited XE Assembler
+- Assignment: Project 2, a limited XE assembler
 
-File Manifest:
+File manifest:
 - main.cpp
 - assembler_types.h
 - parser.h, parser.cpp
@@ -32,34 +32,30 @@ File Manifest:
 - reference/*
 - sample/*
 
-Compile Instructions:
+Compiling instructions:
 1) Run: make
 2) Executable created: ./lxe
 
-Operating Instructions:
-- Run with one or more files:
+usage instructions:
+- Run with 1 or more files:
   ./lxe file1.sic [file2.sic ...]
 - If no arguments are provided, lxe prints a message and exits.
 
-Significant Design Decisions:
+design decisions:
 - Two-pass pipeline:
-  - Pass 1 computes addresses and builds SYMTAB.
+  - Pass 1 computes addresses and builds symbol table.
   - Pass 2 resolves symbols and emits object code for listing lines.
-- OPTAB is a static in-memory table for SIC/XE opcodes and valid formats.
-- Parser supports label/opcode/operand/comment fields and addressing markers
+- optab is a static in-memory table for SIC/XE opcodes and valid formats
+- parser supports label/opcode/operand/comment fields and addressing markers
   (+, `#`, @, ,X) in source text.
 
-Extra Features:
-- Multi-file invocation in one run.
-- Basic error reporting for duplicate symbols, unknown opcodes, and range failures.
+Extra features:
+- Multi file invocation in one run.
+- Basic error reporting for duplicate symbols, unknown opcodes, and range failures
 
-Known Deficiencies / Bugs:
+Known bugs / things to imrpove:
 - This initial version does not implement directives outside assignment scope
-  (EQU/ORG/LTORG/EXTDEF/EXTREF/CSECT).
+  (EQU/ORG/LTORG/EXTDEF/EXTREF/CSECT)
 - Literal pools are not assembled in this version.
 - Listing column format may need final alignment tuning to exactly match Canvas.
 
-Lessons Learned:
-- Keeping parser, pass logic, and output writing modular makes debugging easier.
-- Stable reference files (sample and textbook figure transcriptions) are critical
-  for validating assembler output.

@@ -22,7 +22,7 @@ std::vector<SourceLine> Parser::parse_file(const std::string& path, std::string&
     std::vector<SourceLine> lines;
     std::ifstream in(path.c_str());
     if (!in) {
-        error_out = "Unable to open input file: " + path;
+        error_out = "unable to open input file: " + path;
         return lines;
     }
 

@@ -22,7 +22,7 @@ bool ListingWriter::write_listing(const std::string& path, const std::vector<Lis
                                   std::string& error_out) const {
     std::ofstream out(path.c_str());
     if (!out) {
-        error_out = "Unable to create listing file: " + path;
+        error_out = "unable to create listing file: " + path;
         return false;
     }
 
@@ -45,7 +45,7 @@ bool ListingWriter::write_listing(const std::string& path, const std::vector<Lis
 bool ListingWriter::write_symtab(const std::string& path, const SymTab& symtab, std::string& error_out) const {
     std::ofstream out(path.c_str());
     if (!out) {
-        error_out = "Unable to create symbol table file: " + path;
+        error_out = "unable to create symbol table file: " + path;
         return false;
     }
     const std::map<std::string, int>& m = symtab.entries();

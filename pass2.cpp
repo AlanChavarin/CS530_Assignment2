@@ -67,7 +67,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
         std::string lit_obj = encode_literal_token(line.opcode, ok_lit);
         if (!ok_lit) {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Invalid literal '" << line.opcode << "'";
+            os << "line " << line.line_number << ": invalid literal '" << line.opcode << "'";
             errors.push_back(os.str());
             return "";
         }
@@ -84,7 +84,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
             base_active = true;
         } else {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Undefined BASE symbol '" << line.operand << "'";
+            os << "line " << line.line_number << ": undefined base symbol '" << line.operand << "'";
             errors.push_back(os.str());
         }
         return "";
@@ -94,7 +94,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
         int value = parse_constant(line.operand, ok);
         if (!ok) {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Invalid WORD operand '" << line.operand << "'";
+            os << "line " << line.line_number << ": invalid word operand '" << line.operand << "'";
             errors.push_back(os.str());
             return "";
         }
@@ -106,7 +106,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
         int value = parse_byte_value(line.operand, ok, bits);
         if (!ok) {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Invalid BYTE operand '" << line.operand << "'";
+            os << "line " << line.line_number << ": invalid byte operand '" << line.operand << "'";
             errors.push_back(os.str());
             return "";
         }
@@ -143,7 +143,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
         r2 = right.empty() ? 0 : get_register_code(upper(right));
         if (r1 < 0 || r2 < 0) {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Invalid register operand '" << line.operand << "'";
+            os << "line " << line.line_number << ": invalid register operand '" << line.operand << "'";
             errors.push_back(os.str());
             return "";
         }
@@ -188,7 +188,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
                 target = lit_it->second;
             } else {
                 std::ostringstream os;
-                os << "Line " << line.line_number << ": Undefined symbol '" << operand << "'";
+                os << "line " << line.line_number << ": undefined symbol '" << operand << "'";
                 errors.push_back(os.str());
                 return "";
             }
@@ -220,13 +220,13 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
                 disp = brel;
             } else {
                 std::ostringstream os;
-                os << "Line " << line.line_number << ": Target out of range for format 3 '" << operand << "'";
+                os << "line " << line.line_number << ": target out of range for format 3 '" << operand << "'";
                 errors.push_back(os.str());
                 return "";
             }
         } else {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Cannot fit format 3 displacement for '" << operand << "'";
+            os << "line " << line.line_number << ": cannot fit format 3 displacement for '" << operand << "'";
             errors.push_back(os.str());
             return "";
         }

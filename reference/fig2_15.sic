@@ -1,12 +1,4 @@
 *----------------------------------------------------------------------
-* Figure 2.15 — "Illustration of control sections and program linking"
-* (Textbook page 102). SIC/XE source transcribed from the figure listing.
-*
-* This program uses control sections (CSECT), external definitions and
-* references (EXTDEF / EXTREF), LTORG, literals, and EQU. Your CS530
-* Assignment 2 scope may not include linking; keep this file as a
-* golden reference for Fig 2.15 / 2.16 tests.
-*----------------------------------------------------------------------
 * Control section: COPY (main program)
 COPY    START   0               COPY FILE FROM INPUT TO OUTPUT
         EXTDEF  BUFFER,BUFEND,LENGTH

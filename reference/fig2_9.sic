@@ -1,11 +1,3 @@
-*----------------------------------------------------------------------
-* Figure 2.9 — "Program demonstrating additional assembler features"
-* (Textbook page 83). SIC/XE source transcribed from the figure listing.
-*
-* Note: This is the full textbook program. It uses LTORG, literals
-* (=C'EOF', =X'05'), and EQU, which your CS530 Assignment 2 spec may
-* omit; keep this file as a golden reference for Fig 2.9 / 2.10 tests.
-*----------------------------------------------------------------------
 COPY    START   0               COPY FILE FROM INPUT TO OUTPUT
 FIRST   STL     RETADR          SAVE RETURN ADDRESS
         LDB     #LENGTH         ESTABLISH BASE REGISTER

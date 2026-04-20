@@ -52,7 +52,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
             int lsz = get_literal_size(line.opcode);
             if (lsz < 0) {
                 std::ostringstream os;
-                os << "Line " << line.line_number << ": Invalid literal '" << line.opcode << "'";
+                os << "line " << line.line_number << ": invalid literal '" << line.opcode << "'";
                 result.errors.push_back(os.str());
             } else {
                 locctr += lsz;
@@ -72,7 +72,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
             int sz = get_byte_size(line.operand);
             if (sz < 0) {
                 std::ostringstream os;
-                os << "Line " << line.line_number << ": Invalid BYTE operand '" << line.operand << "'";
+                os << "line " << line.line_number << ": invalid byte operand '" << line.operand << "'";
                 result.errors.push_back(os.str());
             } else {
                 locctr += sz;
@@ -80,7 +80,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
         } else if (base_op == "EQU" || base_op == "ORG" || base_op == "LTORG" ||
                    base_op == "EXTDEF" || base_op == "EXTREF" || base_op == "CSECT") {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Unsupported directive '" << base_op << "'";
+            os << "line " << line.line_number << ": unsupported directive '" << base_op << "'";
             result.errors.push_back(os.str());
         } else if (optab.has(base_op)) {
             OpEntry e = optab.get(base_op);
@@ -100,7 +100,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
             }
         } else {
             std::ostringstream os;
-            os << "Line " << line.line_number << ": Unknown opcode/directive '" << line.opcode << "'";
+            os << "line " << line.line_number << ": unknown opcode/directive '" << line.opcode << "'";
             result.errors.push_back(os.str());
         }
     }

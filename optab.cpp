@@ -50,7 +50,7 @@ bool OpTab::has(const std::string& mnemonic) const {
 OpEntry OpTab::get(const std::string& mnemonic) const {
     std::unordered_map<std::string, OpEntry>::const_iterator it = table_.find(mnemonic);
     if (it == table_.end()) {
-        throw std::runtime_error("Unknown mnemonic: " + mnemonic);
+        throw std::runtime_error("unknown mnemonic: " + mnemonic);
     }
     return it->second;
 }

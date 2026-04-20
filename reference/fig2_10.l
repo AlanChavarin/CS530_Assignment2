@@ -1,10 +1,3 @@
-# Figure 2.10 (page 84) — "Program from Fig. 2.9 with object code"
-# Reference listing transcribed from the textbook. Use to validate lxe output
-# against the source in reference/fig2_9.sic (requires LTORG, literals, EQU).
-#
-# Columns: Line | Loc | Label | Mnemonic | Operand | ObjectCode
-# Empty fields mean blank in the figure. Loc is hex without 0x prefix.
-#----------------------------------------------------------------------
 Line	Loc	Label	Mnemonic	Operand	ObjectCode
 5	0000	COPY	START	0	
 10	0000	FIRST	STL	RETADR	17202D

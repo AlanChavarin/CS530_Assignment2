@@ -1,10 +1,3 @@
-# Figure 2.16 (page 103) — "Program from Fig. 2.15 with object code"
-# Reference listing transcribed from the textbook. Use to validate lxe output
-# against reference/fig2_15.sic (requires CSECT, EXTDEF/EXTREF, LTORG, literals, EQU).
-# Object code uses 000000 address fields where the linker resolves external symbols.
-#
-# Columns: Line | Loc | Label | Mnemonic | Operand | ObjectCode
-# Empty fields mean blank in the figure. Loc is hex without 0x prefix.
 #----------------------------------------------------------------------
 Line	Loc	Label	Mnemonic	Operand	ObjectCode
 5	0000	COPY	START	0	
