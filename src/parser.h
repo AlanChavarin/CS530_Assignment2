@@ -12,9 +12,11 @@
 
 class Parser {
    public:
+    // this parses the file and returns a vector of SourceLine structs
     std::vector<SourceLine> parse_file(const std::string& path, std::string& error_out) const;
 
    private:
+    // this parses a single line and returns a SourceLine struct
     SourceLine parse_line(const std::string& line, int line_number) const;
 };
 

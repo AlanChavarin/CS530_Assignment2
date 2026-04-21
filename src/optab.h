@@ -12,14 +12,14 @@
 
 class OpTab {
    public:
-    OpTab();
+    OpTab(); // default constructor
 
-    bool has(const std::string& mnemonic) const;
-    OpEntry get(const std::string& mnemonic) const;
+    bool has(const std::string& mnemonic) const; // checks if the mnemonic is in the optab
+    OpEntry get(const std::string& mnemonic) const; // getter function for the optab using the mnemonic
 
    private:
-    std::unordered_map<std::string, OpEntry> table_;
-    void add(const std::string& mnem, int opcode, int mask);
+    std::unordered_map<std::string, OpEntry> table_; // this stores the mnemonics as keys and OpEntry structs as values
+    void add(const std::string& mnem, int opcode, int mask); // this adds a new entry to the optab
 };
 
 #endif
