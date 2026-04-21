@@ -6,12 +6,13 @@
 
 #include <stdexcept>
 
-namespace {
-const int F1 = 1 << 1;
-const int F2 = 1 << 2;
-const int F34 = (1 << 3) | (1 << 4);
+namespace { // masks for deciding the instruction format
+const int F1 = 1 << 1; // format 1
+const int F2 = 1 << 2; // format 2
+const int F34 = (1 << 3) | (1 << 4); // format 3 or 4
 } 
 
+// this initializes the optab with the mnemonics, opcodes, and formats
 OpTab::OpTab() {
     add("ADD", 0x18, F34); add("ADDF", 0x58, F34); add("ADDR", 0x90, F2);
     add("AND", 0x40, F34); add("CLEAR", 0xB4, F2); add("COMP", 0x28, F34);
@@ -35,22 +36,25 @@ OpTab::OpTab() {
     add("TIXR", 0xB8, F2); add("WD", 0xDC, F34);
 }
 
+// this adds a new entry to the optab
 void OpTab::add(const std::string& mnem, int opcode, int mask) {
-    OpEntry e;
+    OpEntry e; // this is the struct from assembler_types.h that stores the mnemonic, opcode, and valid formats
     e.mnemonic = mnem;
     e.opcode_byte = opcode;
     e.valid_formats = mask;
     table_[mnem] = e;
 }
 
+// checks if the mnemonic is in the optab
 bool OpTab::has(const std::string& mnemonic) const {
     return table_.find(mnemonic) != table_.end();
 }
 
+// getter function for the optab using the mnemonic
 OpEntry OpTab::get(const std::string& mnemonic) const {
     std::unordered_map<std::string, OpEntry>::const_iterator it = table_.find(mnemonic);
     if (it == table_.end()) {
-        throw std::runtime_error("unknown mnemonic: " + mnemonic);
+        throw std::runtime_error("unknown mnemonic: " + mnemonic); // if the mnemonic is not found, throw an error
     }
-    return it->second;
+    return it->second; // return the opcode and valid formats
 }

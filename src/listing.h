@@ -14,8 +14,8 @@
 class ListingWriter {
    public:
     bool write_listing(const std::string& path, const std::vector<ListingRecord>& records,
-                       std::string& error_out) const;
-    bool write_symtab(const std::string& path, const SymTab& symtab, std::string& error_out) const;
+                       std::string& error_out) const; // this writes the listing file
+    bool write_symtab(const std::string& path, const SymTab& symtab, std::string& error_out) const; // this writes the symbol table file
 };
 
 #endif
