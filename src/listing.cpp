@@ -156,8 +156,9 @@ bool ListingWriter::write_symtab(const std::string& path, const Pass1Result& p1,
             std::string lname = literal_display_name(tok);
             std::string lhex = literal_operand_hex(tok);
             int llen = literal_length_bytes(tok);
-            out << std::left << std::setw(6) << lname << std::setw(8) << lhex << std::setw(8) << hex_addr(lit_addr, 4)
-                << "     " << llen << "\n";
+            // Fixed widths match header "Name  Operand   Address  Length:" so the length lines up with 'L'
+            out << std::left << std::setw(6) << lname << std::setw(10) << lhex << std::setw(9) << hex_addr(lit_addr, 4)
+                << llen << "\n";
         }
     }
 
