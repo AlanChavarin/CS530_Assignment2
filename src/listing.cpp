@@ -112,10 +112,25 @@ bool ListingWriter::write_listing(const std::string& path, const std::vector<Lis
         } else {
             out << "      ";
         }
+        // Allow '+' on the opcode and '#'/'='/'@' on the operand to sit in the
+        // trailing whitespace of the previous column so that the alphabetic
+        // portions stay aligned with non-prefixed lines.
+        int label_w = 10;
+        int opcode_w = 8;
+        int operand_w = 12;
+        if (!r.opcode.empty() && r.opcode[0] == '+') {
+            label_w -= 1;
+            opcode_w += 1;
+        }
+        if (!r.operand.empty() &&
+            (r.operand[0] == '#' || r.operand[0] == '=' || r.operand[0] == '@')) {
+            opcode_w -= 1;
+            operand_w += 1;
+        }
         out << std::setw(6) << r.loc_str << " "
-            << std::left << std::setw(10) << r.label
-            << std::setw(8) << r.opcode
-            << std::setw(12) << r.operand
+            << std::left << std::setw(label_w) << r.label
+            << std::setw(opcode_w) << r.opcode
+            << std::setw(operand_w) << r.operand
             << r.object_code << std::right << "\n";
     }
     return true;
