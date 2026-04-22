@@ -1,6 +1,6 @@
 CSect   Symbol  Value   LENGTH  Flags:
 --------------------------------------
-SUM             000000  002F0A
+SUM             000000  002F0A                  
         FIRST   000000          R
         LOOP    00000A          R
         MYLIT   00001D          R
@@ -12,4 +12,4 @@ SUM             000000  002F0A
 Literal Table 
 Name  Operand   Address  Length:
 --------------------------------
-EOF   454F46  2F07         3
+EOF   454F46    2F07     3

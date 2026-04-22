@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
             continue;
         }
         // write the symbol table file and check for errors
-        if (!writer.write_symtab(sym_file, p1.symtab, err)) {
+        if (!writer.write_symtab(sym_file, p1, p2, err)) {
             std::cerr << err << "\n";
             overall_status = 1;
             continue;

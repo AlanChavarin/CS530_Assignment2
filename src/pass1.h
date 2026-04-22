@@ -16,6 +16,7 @@
 struct Pass1Result {
     std::vector<SourceLine> lines; // this vector stores the parsed lines
     SymTab symtab;
+    std::string program_name; // label on START (control section name), if any
     int start_address; // this is the start address of the program
     int program_length; // this is the length of the program
     std::vector<std::string> errors; // this vector stores the errors encountered during pass 1
