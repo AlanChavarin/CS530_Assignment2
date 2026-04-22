@@ -104,13 +104,15 @@ bool ListingWriter::write_listing(const std::string& path, const std::vector<Lis
         return false;
     }
 
+    out << ".  SOURCE CODE FOR THE XE VERSION OF THE SIC FAMILY OF COMPUTER\n";
+
     // loop through the records and write them to the file
     for (std::size_t i = 0; i < records.size(); ++i) {
         const ListingRecord& r = records[i];
-        if (r.line_number >= 0) {
-            out << std::setw(5) << r.line_number << " ";
-        } else {
-            out << "      ";
+        // skip comment/blank source rows that have no printable listing fields
+        if (r.loc_str.empty() && r.label.empty() && r.opcode.empty() &&
+            r.operand.empty() && r.object_code.empty()) {
+            continue;
         }
         // Allow '+' on the opcode and '#'/'='/'@' on the operand to sit in the
         // trailing whitespace of the previous column so that the alphabetic
@@ -127,7 +129,7 @@ bool ListingWriter::write_listing(const std::string& path, const std::vector<Lis
             opcode_w -= 1;
             operand_w += 1;
         }
-        out << std::setw(6) << r.loc_str << " "
+        out << std::setw(4) << r.loc_str << "    "
             << std::left << std::setw(label_w) << r.label
             << std::setw(opcode_w) << r.opcode
             << std::setw(operand_w) << r.operand
