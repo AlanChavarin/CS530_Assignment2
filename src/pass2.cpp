@@ -63,7 +63,7 @@ Pass2Result Pass2::run(const Pass1Result& pass1, const OpTab& optab) const {
     return out;
 }
 
-
+// this encodes the SourceLine and returns the object code in hex
 std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, const SymTab& symtab,
                                const std::map<std::string, int>& literal_addresses, const OpTab& optab,
                                bool& base_active, int& base_address,
@@ -145,6 +145,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
     if (format == 2) {
         int r1 = 0;
         int r2 = 0;
+        // this gets the operand and splits it into left and right parts it has a comma
         std::string opr = line.operand;
         std::string left = opr;
         std::string right = "";
@@ -155,12 +156,13 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
         }
         r1 = get_register_code(upper(left));
         r2 = right.empty() ? 0 : get_register_code(upper(right));
-        if (r1 < 0 || r2 < 0) {
+        if (r1 < 0 || r2 < 0) { // check if the registers are valid, if not, add an error to the errorlist
             std::ostringstream os;
             os << "line " << line.line_number << ": invalid register operand '" << line.operand << "'";
             errors.push_back(os.str());
             return "";
         }
+        // this encodes the opcode and registers into a 4 byte hex value
         int code = (e.opcode_byte << 8) | ((r1 & 0xF) << 4) | (r2 & 0xF);
         return hex(code, 4);
     }
@@ -242,6 +244,7 @@ std::string Pass2::encode_line(const SourceLine& line, const SourceLine* next, c
                 return "";
             }
         } else {
+            // if the displacement is not within range, add tge error to the errorlist
             std::ostringstream os;
             os << "line " << line.line_number << ": cannot fit format 3 displacement for '" << operand << "'";
             errors.push_back(os.str());

@@ -29,21 +29,21 @@ bool parse_byte_operand(const std::string& operand, int& value_out, int& width_b
     char kind = operand[0];
     if (operand[1] != '\'' || operand[operand.size() - 1] != '\'') return false;
     std::string body = operand.substr(2, operand.size() - 3);
-    if (kind == 'C' || kind == 'c') {
+    if (kind == 'C' || kind == 'c') { // if the operand is a character literal
         c_inner_out = body;
         int value = 0;
         width_bits = static_cast<int>(body.size() * 8);
-        for (std::size_t i = 0; i < body.size(); ++i) {
+        for (std::size_t i = 0; i < body.size(); ++i) { // loop throu the body and convert each character to a int val
             value = (value << 8) | static_cast<unsigned char>(body[i]);
         }
         value_out = value;
         return true;
     }
-    if (kind == 'X' || kind == 'x') {
+    if (kind == 'X' || kind == 'x') { // if the operand is a hex literal
         for (std::size_t i = 0; i < body.size(); ++i) {
             if (!std::isxdigit(static_cast<unsigned char>(body[i]))) return false;
         }
-        if (body.size() % 2 != 0) return false;
+        if (body.size() % 2 != 0) return false; // if the body size is not even, return false
         width_bits = static_cast<int>(body.size() * 4);
         value_out = static_cast<int>(std::strtol(body.c_str(), NULL, 16));
         return true;
@@ -51,6 +51,7 @@ bool parse_byte_operand(const std::string& operand, int& value_out, int& width_b
     return false;
 }
 
+// this converts the literal token to a hex string
 std::string literal_operand_hex(const std::string& literal_token) {
     if (literal_token.size() < 2 || literal_token[0] != '=') return "";
     int value = 0;
@@ -58,27 +59,32 @@ std::string literal_operand_hex(const std::string& literal_token) {
     std::string dummy;
     if (!parse_byte_operand(literal_token.substr(1), value, bits, dummy)) return "";
     std::ostringstream os;
+    // formats the hex value and sets the width and fill using 0
     os << std::uppercase << std::hex << std::setw(bits / 4) << std::setfill('0') << (value & 0xFFFFFF);
     return os.str();
 }
 
+// this gets the length of the literal token in bytes
 int literal_length_bytes(const std::string& literal_token) {
     if (literal_token.size() < 2 || literal_token[0] != '=') return 0;
     int value = 0;
     int bits = 0;
     std::string cinner;
+    // if the literal token is not valid, return 0
     if (!parse_byte_operand(literal_token.substr(1), value, bits, cinner)) return 0;
     return bits / 8;
 }
 
+// this gets the display name of the literal token
 std::string literal_display_name(const std::string& literal_token) {
     if (literal_token.size() < 2 || literal_token[0] != '=') return "";
     int value = 0;
     int bits = 0;
     std::string cinner;
+    // if the literal token is not valid, return an empty string
     if (!parse_byte_operand(literal_token.substr(1), value, bits, cinner)) return "";
     if (!cinner.empty()) return cinner;
-    // X'..' — use hex body as the name
+    // X'..' uses hex body as the name
     std::string op = literal_token.substr(1);
     if (op.size() >= 3 && (op[0] == 'X' || op[0] == 'x') && op[1] == '\'') {
         return op.substr(2, op.size() - 3);
@@ -134,6 +140,7 @@ bool ListingWriter::write_symtab(const std::string& path, const Pass1Result& p1,
     }
 
     std::set<std::string> seen;
+    // this loops thrhou the lines from pass 1 and adds the symbols to the symbol table
     for (std::size_t i = 0; i < p1.lines.size(); ++i) {
         const SourceLine& line = p1.lines[i];
         if (line.is_comment || line.is_blank) continue;
@@ -150,15 +157,16 @@ bool ListingWriter::write_symtab(const std::string& path, const Pass1Result& p1,
         out << "\nLiteral Table \n";
         out << "Name  Operand   Address  Length:\n";
         out << "--------------------------------\n";
+
+        // this loops throu the literal table and adds the literals to the output
         for (std::size_t i = 0; i < p2.literal_table.size(); ++i) {
             const std::string& tok = p2.literal_table[i].first;
             int lit_addr = p2.literal_table[i].second;
-            std::string lname = literal_display_name(tok);
-            std::string lhex = literal_operand_hex(tok);
-            int llen = literal_length_bytes(tok);
-            // Fixed widths match header "Name  Operand   Address  Length:" so the length lines up with 'L'
+            std::string lname = literal_display_name(tok); // this gets the display name of the literal token
+            std::string lhex = literal_operand_hex(tok); // this converts the literal token to a hex string
+            int llen = literal_length_bytes(tok); // this gets the length of the literal token in bytes
             out << std::left << std::setw(6) << lname << std::setw(10) << lhex << std::setw(9) << hex_addr(lit_addr, 4)
-                << llen << "\n";
+                << llen << "\n"; // this writes the literal to the output
         }
     }
 
