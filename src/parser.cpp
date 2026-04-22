@@ -46,12 +46,24 @@ SourceLine Parser::parse_line(const std::string& line, int line_number) const {
     out.address = -1;
 
     std::string cleaned = line;
-    // in SIC/XE source, comment lines commonly start with '.' and many
-    // textbook samples also use '*' banner/comment lines.
-    if (!cleaned.empty() && (cleaned[0] == '.' || cleaned[0] == '*')) {
+    // '.' begins a full-line comment.
+    if (!cleaned.empty() && cleaned[0] == '.') {
         out.is_comment = true;
         out.comment = cleaned;
         return out;
+    }
+    // '*' may begin a banner comment (*----...) OR be the label on a literal
+    // pool line (* =C'EOF'). Only treat as full-line comment if the line is
+    // not a literal definition (next non-space after * does not start with '=').
+    if (!cleaned.empty() && cleaned[0] == '*') {
+        std::string after_star = cleaned.substr(1);
+        std::string rest = trim(after_star);
+        if (rest.empty() || rest[0] != '=') {
+            out.is_comment = true;
+            out.comment = cleaned;
+            return out;
+        }
+        // else: label '*' with opcode '=...' — fall through to normal token parsing
     }
 
     // if the line is empty, set the is_blank to true
