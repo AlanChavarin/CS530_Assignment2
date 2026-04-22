@@ -46,8 +46,9 @@ SourceLine Parser::parse_line(const std::string& line, int line_number) const {
     out.address = -1;
 
     std::string cleaned = line;
-    // if the line is a comment, set the is_comment to true and set the comment to the line
-    if (!cleaned.empty() && cleaned[0] == '.') {
+    // in SIC/XE source, comment lines commonly start with '.' and many
+    // textbook samples also use '*' banner/comment lines.
+    if (!cleaned.empty() && (cleaned[0] == '.' || cleaned[0] == '*')) {
         out.is_comment = true;
         out.comment = cleaned;
         return out;
