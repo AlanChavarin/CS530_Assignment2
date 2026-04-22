@@ -1,10 +1,11 @@
-CS530 Spring 2026 - Assignment 2
+CS530 Spring 2026 - Assignment 2 (2 Pass SIC/XE Assembler)
 Filename: README
-VERSION: 1.1
+
 
 Team members:
 - Alan Chavarin, cssc2513, red id: 827690364
-- Amir Ali, cssc2503, red id 132395455
+- Amir Ali, cssc2503, red id: 132395455
+
 
 Project:
 - program name: lxe
@@ -14,9 +15,11 @@ Project:
   - <name>.l listing file
   - <name>.st symbol table file
 
+
 Class and assignment information:
 - Class: CS530
 - Assignment: Project 2, a limited XE assembler
+
 
 File manifest:
 - main.cpp
@@ -29,19 +32,23 @@ File manifest:
 - listing.h, listing.cpp
 - Makefile
 - README
-- Assignment.txt
-- reference/*
-- sample/*
+- sample/p1.sic
+- sample2/p2.sic
+- sample3/p3.sic
+
 
 Compiling instructions:
 1) Run: make
 2) Executable created: ./lxe
 
-usage instructions:
-1) Run: ./lxe ./sample/file1.sic [file2.sic ...]
+
+Usage instructions:
+1) Run: ./lxe ./sample/p1.sic [file2.sic ...]
 2) If no arguments are provided, lxe prints a message and exits.
 
-design decisions:
+
+Design Decisions:
+Draft:
 - Two-pass pipeline:
   - Pass 1 computes addresses and builds symbol table.
   - Pass 2 resolves symbols and emits object code for listing lines.
@@ -49,13 +56,63 @@ design decisions:
 - parser supports label/opcode/operand/comment fields and addressing markers
   (+, `#`, @, ,X) in source text.
 
-Extra features:
-- Multi file invocation in one run.
-- Basic error reporting for duplicate symbols, unknown opcodes, and range failures
+Final Design Decisions:
+The first decisions were regarding what language and compiler we should use, and we quickly came to the same conclusion,
+C++ and GCC as the compiler. We were both more familiar with C++ than C and that was the case for the GCC compiler as well.
+The language and compiler both suited to our strengths and was a straightforward decision.
 
-Known bugs / things to imrpove:
+Another decision was how to organize the overall design of the code base and we choose a modular object-oriented approach
+using classes and structs where applicable. This decision was once more based on our experience in using this modular
+approach of dividing code across classes and interweaving their functionalities. The readability and logic flow is also far
+better than one monolithic file.
+
+Thereafter, we decided that we first need to create a parser class to extract tokens from the source SIC/XE code.
+We chose to delimit tokens such as labels using whitespace.Then, we created 3 structs in assembler_types.h to group together
+data pertaining to each source line, op entry, and listing record. We decided that structs were better fit for this,
+as opposed to creating 3 more new classes just for them to hold a few fields, as the structs didn’t even have functions.
+In the OpEntry struct, we decided to use a bitmask int for valid instruction formats. The bitmask elegantly and efficiently
+encodes the instruction format and validating the format is as simple as a quick bitwise operation.
+
+The next design decision was how to create the table of ops and correspond them to their mnemonics and values.
+This time we used a class because there were a few methods that we were going to need such as checking if the OpTable
+already has an op, what the value of a mnemonic is, and more. Then came the organization of the ops, the most straightforward
+approach was to use an unordered map to store an OpEntry struct from assembler_types as the value and the op mnemonic as the key.
+This nicely organized the data without the need for any extra complexity and its O(1) amortized time complexity.
+
+Subsequently, we needed to decide on a way to store the symbol table. Similar to the OpTable, we felt a class was best suited
+for the task as we would need to look up the symbol table for the passes. We could have used a simple array, however,
+we wanted to search for the values using symbols and the best choice was to once again use a map. We used the symbols as
+keys and their address values as the values. Additionally, this prevents the chance that you might have duplicate symbols
+in the table. It also simplifies searches and inserts.
+
+Next, we chose to use classes for both pass 1 and pass 2. For pass 1, we used a struct to store the results of pass 1 instead
+of simply using the fields of the pass 1 class to store these values. This was a better approach because this keeps pass 1
+stateless and reusable across multiple SIC source files. The same approach was used in pass 2 and its class. Afterward,
+we needed to decide on the type of addressing mode by default. We choose to resolve displacement first by pc-relative
+addressing, then base-relative addressing. This was the proper approach the SIC/XE algorithm uses. In pass 2, we once more
+determined using an int with bitshifting was the best approach for capturing the flag values for x, b, p, e. Comparisons are
+simple and fast this way.
+
+The approach to error handling was to catalog all errors into an error list and to display these to the user so that they are
+aware of all the errors. We applied this approach to every possible point of failure.
+
+Lastly, we created a simple ListingWriter class with two methods to output to the listing file and symbol table file.
+We felt this was a better approach as it decoupled the logic, as opposed to adding these two functions onto another class.
+
+
+Extra features:
+- Multi-file invocation in one run. You can pass multiple files to the assembler and it will process them all.
+- Basic error reporting for duplicate symbols, unknown opcodes, and range failures. The map data structure, which uses symbols as keys, prevents duplicate symbols from being added to the symbol table. 
+- Collection and display of errors in a list format. This is a simple and effective way to display all errors to the user, not just the first error.
+- Catching unknown or unsupported directives and opcodes. This is done by checking if the opcode is supported by the optab and if not, adding an error to the error list.
+- Automatic output filename generation. The assembler will automatically generate the listing and symbol table files with the same name as the source file, but with the .l and .st extensions respectively.
+
+
+Known bugs / things to improve:
 - This initial version does not implement directives outside assignment scope
   (EQU/ORG/LTORG/EXTDEF/EXTREF/CSECT)
-- Literal pools are not assembled in this version.
-- Listing column format may need final alignment tuning to exactly match Canvas.
 
+
+Lessons Learned:
+- We learned the power of separating data from behavior as in the case of Pass1Result and Pass2Result.
+- We learned how properly utilize a Software Design Document to plan and organize the code base. To have a clear and concise plan before starting to code.
