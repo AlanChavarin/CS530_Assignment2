@@ -37,7 +37,7 @@ Compiling instructions:
 2) Executable created: ./lxe
 
 usage instructions:
-1) Run: ./lxe file1.sic [file2.sic ...]
+1) Run: ./lxe ./sample/file1.sic [file2.sic ...]
 2) If no arguments are provided, lxe prints a message and exits.
 
 design decisions:
