@@ -7,6 +7,7 @@
 
 #include <string>
 #include <map>
+#include <utility>
 #include <vector>
 
 #include "assembler_types.h"
@@ -17,6 +18,8 @@
 struct Pass2Result {
     std::vector<ListingRecord> listing_records; // this vector stores the listing records that will be written to the listing file
     std::vector<std::string> errors; // vector that stores the lsit of errors
+    // literal token (e.g. =C'EOF') -> address, in first-seen source order (for symtab .st)
+    std::vector<std::pair<std::string, int> > literal_table;
 };
 
 class Pass2 {

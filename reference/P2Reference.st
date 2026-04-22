@@ -1,6 +1,6 @@
 CSect   Symbol  Value   LENGTH  Flags:
 --------------------------------------
-SUM             000000  002F0A
+SUM             000000  002F0A                  
         FIRST   000000          R
         LOOP    00000A          R
         MYLIT   00001D          R

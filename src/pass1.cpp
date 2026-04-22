@@ -29,6 +29,7 @@ Pass1Result Pass1::run(const std::vector<SourceLine>& parsed, const OpTab& optab
 
         if (op == "START") {
             start_seen = true;
+            result.program_name = line.label; // control section name for listing/symtab output
             if (!line.operand.empty()) { // check if the operand is not empty and if so, we parse the operand
                 locctr = parse_number(line.operand, true);
                 result.start_address = locctr; // set the start address to locctr

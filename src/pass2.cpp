@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <map>
+#include <set>
 #include <sstream>
 
 // this runs pass 2 and returns a Pass2Result struct
@@ -16,12 +17,16 @@ Pass2Result Pass2::run(const Pass1Result& pass1, const OpTab& optab) const {
     bool base_active = false; // this is used to check if base addressing is active
     int base_address = 0;
     std::map<std::string, int> literal_addresses; // this map stores literals and their addresses
+    std::set<std::string> literal_seen;
 
     // we loop through the lines from pass 1 and add the literals and their addresses
     for (std::size_t i = 0; i < pass1.lines.size(); ++i) {
         const SourceLine& line = pass1.lines[i];
         if (line.label == "*" && !line.opcode.empty() && line.opcode[0] == '=' && line.address >= 0) { // check if the line is a literal
             literal_addresses[line.opcode] = line.address; // add the literal and address to the map
+            if (literal_seen.insert(line.opcode).second) {
+                out.literal_table.push_back(std::make_pair(line.opcode, line.address));
+            }
         }
     }
 
